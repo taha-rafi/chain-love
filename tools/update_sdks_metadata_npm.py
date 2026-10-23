@@ -304,10 +304,10 @@ def main() -> int:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        sdks = data.get("sdks")
+        sdks = data.get("sdks") if isinstance(data, dict) else None
         if not isinstance(sdks, list):
             print(f"ERROR: {path} has no 'sdks' list", file=sys.stderr)
-            continue
+            return 2
 
         scanned = updated = skipped_gh = matched = 0
 
